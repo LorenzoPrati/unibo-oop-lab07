@@ -57,7 +57,7 @@ public final class Transformers {
     public static <I, O> List<O> transform(final Iterable<I> base, final Function<I, O> transformer) {
         return flattenTransform(base, new Function<I,Collection<? extends O>>() {
             @Override
-            public Collection<? extends O> call(I input) {
+            public Collection<? extends O> call(final I input) {
                 return List.of(transformer.call(input));
             }
         });
@@ -95,7 +95,7 @@ public final class Transformers {
     public static <I> List<I> select(final Iterable<I> base, final Function<I, Boolean> test) {
         return flattenTransform(base, new Function<I,Collection<? extends I>>() {
             @Override
-            public Collection<? extends I> call(I input) {
+            public Collection<? extends I> call(final I input) {
                 if (test.call(input)) {
                     return List.of(input);
                 }
@@ -117,15 +117,11 @@ public final class Transformers {
      * @param <I> elements type
      */
     public static <I> List<I> reject(final Iterable<I> base, final Function<I, Boolean> test) {
-        return flattenTransform(base, new Function<I,Collection<? extends I>>() {
+        return select(base, new Function<I,Boolean>() {
             @Override
-            public Collection<? extends I> call(I input) {
-                if (!test.call(input)) {
-                    return List.of(input);
-                }
-                return Collections.emptyList();
+            public Boolean call(final I input) {
+                return !test.call(input);
             }
         });
     }
-
 }
