@@ -35,8 +35,9 @@ public final class DrawNumberControllerImpl implements DrawNumberController {
 
     @Override
     public void newAttempt(final int n) {
+        final var res = model.attempt(n);
         for (final var view : views) {
-            view.result(model.attempt(n));
+            view.result(res);
         }
     }
 

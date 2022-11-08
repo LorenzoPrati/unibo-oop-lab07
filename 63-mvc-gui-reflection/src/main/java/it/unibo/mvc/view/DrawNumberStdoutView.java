@@ -15,7 +15,9 @@ public class DrawNumberStdoutView implements DrawNumberView {
 
     @Override
     public void start() {
-        System.out.println("StdoutView start");
+        /*
+         * Nothing to do
+         */
     }
 
     @Override
